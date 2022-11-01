@@ -33,14 +33,22 @@ DeepSpeech 4 CommonVoice
 
    -App
       --cv-corpus
-         --de
-            -- clips & etc. 
+         de
       --Docker
-         -- Dockerfile.train
+         Dockerfile.train
 
 3. Start the Container, it's important to load the cv-corpus as a volume and use GPU support:
 
-      docker run -it -v $(pwd)/cv-corpus:/DeepSpeech/data/cv-corpus --gpus all deepspeech/training sh
+      docker run -it -v $(pwd)/cv-corpus:/Dee/data/cv-corpus --gpus all deepspeech/training sh
+
+   Container structure:
+
+   -DeepSpeech
+      --bin
+         run-cv-de.sh
+      --data
+         --cv-corpus
+            de
 
 4. Start the Training.
 
