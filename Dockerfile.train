@@ -39,17 +39,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends --allow-unauthe
     # Try and free some space \
     rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+WORKDIR /
 RUN git clone $DEEPSPEECH_REPO DeepSpeech && \
-    cd /app/DeepSpeech && git fetch origin $DEEPSPEECH_SHA && git checkout $DEEPSPEECH_SHA && \
+    cd /DeepSpeech && git fetch origin $DEEPSPEECH_SHA && git checkout $DEEPSPEECH_SHA && \
     git submodule sync kenlm/ && git submodule update --init kenlm/
 
 # Build CTC decoder first, to avoid clashes on incompatible versions upgrades
-RUN cd /app/DeepSpeech/native_client/ctcdecode && make NUM_PROCESSES=$(nproc) bindings && \
+RUN cd /DeepSpeech/native_client/ctcdecode && make NUM_PROCESSES=$(nproc) bindings && \
     pip3 install --upgrade dist/*.whl
 
 # Prepare deps
-RUN cd /app/DeepSpeech && pip3 install --upgrade pip==21.3.1 wheel==0.34.2 setuptools==49.6.0 && \
+RUN cd /DeepSpeech && pip3 install --upgrade pip==21.3.1 wheel==0.34.2 setuptools==49.6.0 && \
     # Install DeepSpeech \
     #  - No need for the decoder since we did it earlier \
     #  - There is already correct TensorFlow GPU installed on the base image, \
@@ -60,7 +60,7 @@ RUN cd /app/DeepSpeech && pip3 install --upgrade pip==21.3.1 wheel==0.34.2 setup
     chmod +x convert_graphdef_memmapped_format
 
 # Build KenLM to generate new scorers
-WORKDIR /app/DeepSpeech/kenlm
+WORKDIR /DeepSpeech/kenlm
 RUN wget -O - https://gitlab.com/libeigen/eigen/-/archive/3.3.8/eigen-3.3.8.tar.bz2 | tar xj && \
     mkdir -p build && \
     cd build && \
@@ -68,5 +68,5 @@ RUN wget -O - https://gitlab.com/libeigen/eigen/-/archive/3.3.8/eigen-3.3.8.tar.
     make -j $(nproc)
 
 # Test Training
-WORKDIR /app/DeepSpeech
+WORKDIR /DeepSpeech
 RUN ./bin/run-ldc93s1.sh
