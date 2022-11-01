@@ -10,8 +10,6 @@ if [ ! -f "data/cv-corpus/de/clips/train.csv" ] || [ ! -f "data/cv-corpus/de/cli
     exit 1
 fi;
 
-//python3 DeepSpeech.py --train_files ../cv-corpus/de/clips/train.csv --dev_files ../cv-corpus/de/clips/dev.csv --test_files ../cv-corpus/de/clips/test.csv --checkpoint_dir ../checkpoints --export_dir ../output --automatic_mixed_precision
-
 # TODO: Language Model bauen und lm_alpha, lm_beta zur Verfügung stellen für die optimale Dekodierung.  
 
 python -u DeepSpeech.py --noshow_progressbar \
