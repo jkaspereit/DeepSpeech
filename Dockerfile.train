@@ -1,11 +1,21 @@
-# Please refer to the TRAINING documentation, "Basic Dockerfile for training"
-
+# Dockerfile for Training 
 FROM tensorflow/tensorflow:1.15.4-gpu-py3
 ENV DEBIAN_FRONTEND=noninteractive \
-    DEEPSPEECH_REPO=#DEEPSPEECH_REPO# \
-    DEEPSPEECH_SHA=#DEEPSPEECH_SHA#
+    DEEPSPEECH_REPO=https://github.com/jkaspereit/DeepSpeech.git \
+    DEEPSPEECH_SHA=master
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Updating CUDA Linux GPG Repository Key
+RUN apt-get install wget
+RUN apt-key del 7fa2af80
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb
+RUN dpkg -i cuda-keyring_1.0-1_all.deb
+RUN sed -i '/developer\.download\.nvidia\.com\/compute\/cuda\/repos/d' /etc/apt/sources.list
+RUN rm etc/apt/sources.list.d/cuda-ubuntu1804-x86_64.list
+RUN rm etc/apt/sources.list.d/cuda.list
+RUN wget -qO - https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub | apt-key add -
+
+# Install required dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends --allow-unauthenticated \
     apt-utils \
     bash-completion \
     build-essential \
@@ -19,7 +29,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-venv \
     unzip \
     xz-utils \
-    wget && \
+    wget \
+    sox libsox-fmt-mp3 && \
     # We need to remove it because it's breaking deepspeech install later with \
     # weird errors about setuptools \
     apt-get purge -y python3-xdg && \
@@ -28,17 +39,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     # Try and free some space \
     rm -rf /var/lib/apt/lists/*
 
-WORKDIR /
+WORKDIR /app
 RUN git clone $DEEPSPEECH_REPO DeepSpeech && \
-    cd /DeepSpeech && git fetch origin $DEEPSPEECH_SHA && git checkout $DEEPSPEECH_SHA && \
+    cd /app/DeepSpeech && git fetch origin $DEEPSPEECH_SHA && git checkout $DEEPSPEECH_SHA && \
     git submodule sync kenlm/ && git submodule update --init kenlm/
 
 # Build CTC decoder first, to avoid clashes on incompatible versions upgrades
-RUN cd /DeepSpeech/native_client/ctcdecode && make NUM_PROCESSES=$(nproc) bindings && \
+RUN cd /app/DeepSpeech/native_client/ctcdecode && make NUM_PROCESSES=$(nproc) bindings && \
     pip3 install --upgrade dist/*.whl
 
 # Prepare deps
-RUN cd /DeepSpeech && pip3 install --upgrade pip==20.2.2 wheel==0.34.2 setuptools==49.6.0 && \
+RUN cd /app/DeepSpeech && pip3 install --upgrade pip==21.3.1 wheel==0.34.2 setuptools==49.6.0 && \
     # Install DeepSpeech \
     #  - No need for the decoder since we did it earlier \
     #  - There is already correct TensorFlow GPU installed on the base image, \
@@ -49,13 +60,13 @@ RUN cd /DeepSpeech && pip3 install --upgrade pip==20.2.2 wheel==0.34.2 setuptool
     chmod +x convert_graphdef_memmapped_format
 
 # Build KenLM to generate new scorers
-WORKDIR /DeepSpeech/kenlm
+WORKDIR /app/DeepSpeech/kenlm
 RUN wget -O - https://gitlab.com/libeigen/eigen/-/archive/3.3.8/eigen-3.3.8.tar.bz2 | tar xj && \
     mkdir -p build && \
     cd build && \
     EIGEN3_ROOT=/DeepSpeech/kenlm/eigen-3.3.8 cmake .. && \
     make -j $(nproc)
 
-WORKDIR /DeepSpeech
-
+# Test Training
+WORKDIR /app/DeepSpeech
 RUN ./bin/run-ldc93s1.sh
