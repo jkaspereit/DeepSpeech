@@ -12,7 +12,7 @@ fi;
 
 # TODO: Language Model bauen und lm_alpha, lm_beta zur Verfügung stellen für die optimale Dekodierung.  
 
-python -u DeepSpeech.py --noshow_progressbar \
+python DeepSpeech.py \
   --train_files data/cv-corpus/de/clips/train.csv \
   --train_batch_size 128 \
   --dev_files data/cv-corpus/de/clips/dev.csv \
