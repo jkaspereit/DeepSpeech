@@ -40,7 +40,7 @@ DeepSpeech 4 CommonVoice
 
 3. Start the Container, it's important to load the cv-corpus as a volume and use GPU support:
 
-      docker run -it -v $(pwd)/cv-corpus:/cv-corpus --gpus all deepspeech/training sh
+      docker run -it -v $(pwd)/cv-corpus:/DeepSpeech/data/cv-corpus --gpus all deepspeech/training sh
 
 4. Start the Training.
 
