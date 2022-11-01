@@ -26,6 +26,6 @@ python -u DeepSpeech.py --noshow_progressbar \
   --train_batch_size 1 \
   --test_batch_size 1 \
   --n_hidden 100 \
-  --epochs 200 \
+  --epochs 25 \
   --checkpoint_dir "$checkpoint_dir" \
   "$@"
