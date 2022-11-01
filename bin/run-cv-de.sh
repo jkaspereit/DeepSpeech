@@ -5,7 +5,7 @@ if [ ! -f DeepSpeech.py ]; then
     exit 1
 fi;
 
-if [ ! -f "data/cv-corpus/de/clips/train.csv" || ! -f "data/cv-corpus/de/clips/dev.csv" || ! -f "data/cv-corpus/de/clips/test.csv" ]; then
+if [ ! -f "data/cv-corpus/de/clips/train.csv" ] || [ ! -f "data/cv-corpus/de/clips/test.csv" ] || [ ! -f "data/cv-corpus/de/clips/dev.csv" ]; then
     echo "Please provide imported Common Voice data: data/cv-corpus/de/clips"
     exit 1
 fi;
