@@ -10,6 +10,10 @@ if [ ! -f "data/cv-corpus/de/clips/train.csv" ] || [ ! -f "data/cv-corpus/de/cli
     exit 1
 fi;
 
+# DeepSpeech only works with one visible device (GPU) and when trying to run on multiple devices (GPUs), the training process will break
+# Therefore, make only CUDA Device 0 visible.
+export CUDA_VISIBLE_DEVICES=0
+
 # TODO: Language Model bauen und lm_alpha, lm_beta zur Verfügung stellen für die optimale Dekodierung.  
 
 python DeepSpeech.py \

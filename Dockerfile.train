@@ -31,6 +31,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends --allow-unauthe
     xz-utils \
     wget \
     sox libsox-fmt-mp3 && \
+    # Sometimes little adjustmests (e.g. alphabet.txt) must been made within the container. \ 
+    vim \
     # We need to remove it because it's breaking deepspeech install later with \
     # weird errors about setuptools \
     apt-get purge -y python3-xdg && \

@@ -56,7 +56,7 @@ DeepSpeech 4 CommonVoice
 
 - If your alphabet doesn't fit your language, you have to replace /data/alphabet.txt with the following output:
 
-   python -m deepspeech_training.util.check_characters -csv ../cv-corpus/de/clips/train.csv,../cv-corpus/de/clips/dev.csv,../cv-corpus/de/clips/test.csv -unicode -alpha
+   python -m deepspeech_training.util.check_characters -csv data/cv-corpus/de/clips/train.csv,data/cv-corpus/de/clips/dev.csv,data/cv-corpus/de/clips/test.csv -unicode -alpha
 
 // Warning: This ignores the unicode, it's possible that this causes erros or unpreciouse results 
 // Probably i wongly parametarise the import script.
