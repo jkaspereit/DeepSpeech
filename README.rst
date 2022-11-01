@@ -24,7 +24,10 @@ For the latest release, including pre-trained models and checkpoints, `see the l
 
 DeepSpeech 4 CommonVoice
 ==================
-1. Download and extract the CommonVoice Corpus (cv-corpus).
+1. Download and extract the CommonVoice Corpus (cv-corpus): 
+
+   `Download the latest release <https://commonvoice.mozilla.org/de>`_.
+      
 2. Build the Dockerfile: Dockerfile.train 
 
       docker build -f Dockerfile.train . -t deepspeech/training
@@ -50,9 +53,22 @@ DeepSpeech 4 CommonVoice
          --cv-corpus
             de
 
-4. Start the Training.
+4. Run the CommonVoice importer:
 
-      python3 DeepSpeech.py --train_files ../cv-corpus/de/clips/train.csv --dev_files ../cv-corpus/de/clips/dev.csv --test_files ../cv-corpus/de/clips/test.csv --checkpoint_dir ../checkpoints --export_dir ../output --automatic_mixed_precision
+      ./bin/import_cv2.py --filter_alphabet data/alphabet.txt
+
+5. Start the Training.
+
+      ./bin/run-cv-de.sh
+
+Language Specific Adjustments 
+==================
+
+1. Overwrite data/alphabet.txt with all characters of your language. 
+
+2. Create your own training script (e.g. ./bin/run-cv-en.sh)
+
+3. Watch out for paths (e.g. /de -> /en)
 
 - If your alphabet doesn't fit your language, you have to replace /data/alphabet.txt with the following output:
 
