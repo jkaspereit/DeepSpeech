@@ -69,6 +69,5 @@ RUN wget -O - https://gitlab.com/libeigen/eigen/-/archive/3.3.8/eigen-3.3.8.tar.
     EIGEN3_ROOT=/DeepSpeech/kenlm/eigen-3.3.8 cmake .. && \
     make -j $(nproc)
 
-# Test Training
+# Basic Directory for Training
 WORKDIR /DeepSpeech
-RUN ./bin/run-ldc93s1.sh
