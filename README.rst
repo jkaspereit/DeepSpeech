@@ -57,6 +57,8 @@ DeepSpeech 4 CommonVoice
 
       ./bin/import_cv2.py --filter_alphabet data/alphabet.txt data/cv-corpus/de
 
+      # Evtl. doch das default alphabet nehmen mit --normalize
+
 5. Start the Training.
 
       ./bin/run-cv-de.sh
