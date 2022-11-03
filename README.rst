@@ -55,7 +55,7 @@ DeepSpeech 4 CommonVoice
 
 4. Run the CommonVoice importer:
 
-      ./bin/import_cv2.py --filter_alphabet data/alphabet.txt
+      ./bin/import_cv2.py --filter_alphabet data/alphabet.txt data/cv-corpus/de
 
 5. Start the Training.
 

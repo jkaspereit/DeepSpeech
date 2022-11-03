@@ -16,7 +16,7 @@ export CUDA_VISIBLE_DEVICES=0
 
 # TODO: Language Model bauen und lm_alpha, lm_beta zur Verfügung stellen für die optimale Dekodierung.  
 
-python DeepSpeech.py \
+python DeepSpeech.py --noshow_progressbar \
   --train_files data/cv-corpus/de/clips/train.csv \
   --train_batch_size 128 \
   --dev_files data/cv-corpus/de/clips/dev.csv \
