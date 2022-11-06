@@ -55,13 +55,19 @@ DeepSpeech 4 CommonVoice
 
 4. Run the CommonVoice importer:
 
-      ./bin/import_cv2.py --filter_alphabet data/alphabet.txt data/cv-corpus/de
-
-      # Evtl. doch das default alphabet nehmen mit --normalize
+      Example
+      ./bin/import_cv2.py --filter_alphabet data/alphabet.txt data/cv-corpus/de --normalize
 
 5. Start the Training.
 
-      ./bin/run-cv-de.sh
+      -d dataset
+      -a argumentation (default=false)
+      -c cudaDevice (default=0)
+      -t alphabet_config_path (default=data/alphabet.txt) 
+
+      Example
+      ./bin/run-cv.sh -d de 
+      ./bin/run-cv.sh -d eng -a true -c 1 -t data/alphabet-utf8.txt
 
 Language Specific Adjustments 
 ==================
