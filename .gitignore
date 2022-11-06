@@ -9,7 +9,6 @@
 /runs
 /logs
 /exports
-/data/
 /native_client/setup.cfg
 /native_client/build
 /native_client/*.egg-info
