@@ -67,7 +67,7 @@ DeepSpeech 4 CommonVoice
 
       Example
       ./bin/run-cv.sh -d de 
-      ./bin/run-cv.sh -d eng -a true -c 1 -t data/alphabet-utf8.txt
+      ./bin/run-cv.sh -d en -a true -t alphabet-utf8.txt
 
 Language Specific Adjustments 
 ==================

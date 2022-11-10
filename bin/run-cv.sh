@@ -5,16 +5,16 @@ if [ ! -f DeepSpeech.py ]; then
     exit 1
 fi;
 
-cudaDevice = 0
-argumentation = false
-alphabet_config_path = "data/alphabet.txt"
-while getopts d:a:c:t flag
+cudaDevice=0
+argumentation=false
+alphabet="alphabet.txt"
+while getopts d:a:c:t: flag
 do
     case "${flag}" in
         d) dataset=${OPTARG};;
         a) argumentation=${OPTARG};;
         c) cudaDevice=${OPTARG};;
-        t) alphabet_config_path=${OPTARG};;
+        t) alphabet=${OPTARG};;
     esac
 done
 
@@ -23,7 +23,7 @@ if [ -z "$dataset" ]; then
     exit 1
 fi; 
 
-if [ ! -f "data/cv-corpus/"${dataset}"/clips/train.csv" ] || [ ! -f "data/cv-corpus/"${dataset}"/clips/test.csv" ] || [ ! -f "data/cv-corpus/"${dataset}"/dev.csv" ]; then
+if [ ! -f "data/cv-corpus/"${dataset}"/clips/train.csv" ] || [ ! -f "data/cv-corpus/"${dataset}"/clips/test.csv" ] || [ ! -f "data/cv-corpus/"${dataset}"/clips/dev.csv" ]; then
     echo "Please provide imported Common Voice data: data/cv-corpus/"${dataset}
     exit 1
 fi;
@@ -41,7 +41,7 @@ python -u DeepSpeech.py --noshow_progressbar \
   --dev_batch_size 128 \
   --test_files data/cv-corpus/$dataset/clips/test.csv \
   --test_batch_size 128 \
-  --alphabet_config_path $alphabet_config_path \
+  --alphabet_config_path data/$alphabet \
   --n_hidden 2048 \
   --learning_rate 0.0001 \
   --dropout_rate 0.4 \
@@ -64,7 +64,7 @@ python DeepSpeech.py --noshow_progressbar \
   --dev_batch_size 128 \
   --test_files data/cv-corpus/$dataset/test.csv \
   --test_batch_size 128 \
-  --alphabet_config_path $alphabet_config_path \
+  --alphabet_config_path data/$alphabet \
   --n_hidden 2048 \
   --learning_rate 0.0001 \
   --dropout_rate 0.4 \
