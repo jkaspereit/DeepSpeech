@@ -33,7 +33,7 @@ export CUDA_VISIBLE_DEVICES=$cudaDevice
 
 # TODO: Language Model bauen und lm_alpha, lm_beta zur Verfügung stellen für die optimale Dekodierung?
 
-if [ argumentation ]; then
+if [ "$argumentation" = "true" ]; then
 python -u DeepSpeech.py --noshow_progressbar \
   --train_files data/cv-corpus/$dataset/clips/train.csv \
   --train_batch_size 128 \
