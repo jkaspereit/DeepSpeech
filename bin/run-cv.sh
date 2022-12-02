@@ -46,12 +46,12 @@ python -u DeepSpeech.py --noshow_progressbar \
   --learning_rate 0.0001 \
   --dropout_rate 0.4 \
   --epochs 200 \
-  --augment pitch[pitch=1~0.1]
-  --augment tempo[factor=1~0.1]
-  --augment resample[p=0.2,rate=12000~4000]
-  --augment codec[p=0.2,bitrate=32000~16000]
-  --augment reverb[p=0.2,decay=0.7~0.15,delay=10~8]
-  --augment volume[p=0.2,dbfs=-10~10]
+  --augment pitch[pitch=1~0.1] \
+  --augment tempo[factor=1~0.1] \
+  --augment resample[p=0.2,rate=12000~4000] \
+  --augment codec[p=0.2,bitrate=32000~16000] \
+  --augment reverb[p=0.2,decay=0.7~0.15,delay=10~8] \
+  --augment volume[p=0.2,dbfs=-10~10] \
   --cache_for_epochs 10 \
   --checkpoint_dir "/ckpt/"${dataset} \
   --export_dir "/models/cv/"${dataset} \
