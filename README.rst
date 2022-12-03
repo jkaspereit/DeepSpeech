@@ -56,7 +56,7 @@ DeepSpeech 4 CommonVoice
 4. Run the CommonVoice importer:
 
       Example
-      ./bin/import_cv2.py --filter_alphabet data/alphabet.txt data/cv-corpus/de --normalize
+      ./bin/import_cv2.py --filter_alphabet data/alphabet-utf8.txt data/cv-corpus/de1 --normalize
 
 5. Start the Training.
 
@@ -68,6 +68,10 @@ DeepSpeech 4 CommonVoice
       Example
       ./bin/run-cv.sh -d de 
       ./bin/run-cv.sh -d en -a true -t alphabet-utf8.txt
+
+6. Finalize the model
+
+   ./convert_graphdef_memmapped_format --in_graph=models/de0/output_graph.pb --out_graph=models/de0/output_graph.pbmm
 
 Language Specific Adjustments 
 ==================

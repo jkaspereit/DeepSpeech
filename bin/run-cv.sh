@@ -53,8 +53,8 @@ python -u DeepSpeech.py --noshow_progressbar \
   --augment reverb[p=0.2,decay=0.7~0.15,delay=10~8] \
   --augment volume[p=0.2,dbfs=-10~10] \
   --cache_for_epochs 10 \
-  --checkpoint_dir "/ckpt/"${dataset} \
-  --export_dir "/models/cv/"${dataset} \
+  --checkpoint_dir "ckpt/"${dataset} \
+  --export_dir "models/"${dataset} \
   "$@"
 else
 python DeepSpeech.py --noshow_progressbar \
@@ -70,7 +70,7 @@ python DeepSpeech.py --noshow_progressbar \
   --dropout_rate 0.4 \
   --epochs 200 \
   --cache_for_epochs 10 \
-  --checkpoint_dir "/ckpt/"${dataset} \
-  --export_dir "/models/cv/"${dataset} \
+  --checkpoint_dir "ckpt/"${dataset} \
+  --export_dir "models/"${dataset} \
   "$@"
 fi; 
