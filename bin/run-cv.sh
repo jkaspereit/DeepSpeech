@@ -57,11 +57,11 @@ python -u DeepSpeech.py --noshow_progressbar \
   --export_dir "models/"${dataset} 
 else
 python DeepSpeech.py --noshow_progressbar \
-  --train_files data/cv-corpus/$dataset/train.csv \
+  --train_files data/cv-corpus/$dataset/clips/train.csv \
   --train_batch_size 128 \
-  --dev_files data/cv-corpus/$dataset/dev.csv \
+  --dev_files data/cv-corpus/$dataset/clips/dev.csv \
   --dev_batch_size 128 \
-  --test_files data/cv-corpus/$dataset/test.csv \
+  --test_files data/cv-corpus/$dataset/clips/test.csv \
   --test_batch_size 128 \
   --alphabet_config_path data/$alphabet \
   --n_hidden 2048 \
