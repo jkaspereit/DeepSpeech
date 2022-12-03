@@ -54,8 +54,7 @@ python -u DeepSpeech.py --noshow_progressbar \
   --augment volume[p=0.2,dbfs=-10~10] \
   --cache_for_epochs 10 \
   --checkpoint_dir "ckpt/"${dataset} \
-  --export_dir "models/"${dataset} \
-  "$@"
+  --export_dir "models/"${dataset} 
 else
 python DeepSpeech.py --noshow_progressbar \
   --train_files data/cv-corpus/$dataset/train.csv \
@@ -71,6 +70,5 @@ python DeepSpeech.py --noshow_progressbar \
   --epochs 200 \
   --cache_for_epochs 10 \
   --checkpoint_dir "ckpt/"${dataset} \
-  --export_dir "models/"${dataset} \
-  "$@"
+  --export_dir "models/"${dataset} 
 fi; 
