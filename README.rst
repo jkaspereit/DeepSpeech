@@ -56,7 +56,7 @@ DeepSpeech 4 CommonVoice
 4. Run the CommonVoice importer:
 
       Example
-      ./bin/import_cv2.py --filter_alphabet data/alphabet-utf8.txt data/cv-corpus/de1 --normalize
+      ./bin/import_cv2.py --filter_alphabet data/alphabet-utf8.txt data/cv-corpus/de0 --normalize
 
 5. Start the Training.
 
@@ -67,7 +67,8 @@ DeepSpeech 4 CommonVoice
 
       Example
       ./bin/run-cv.sh -d de 
-      ./bin/run-cv.sh -d en -a true -t alphabet-utf8.txt
+      ./bin/run-cv.sh -d de0 -t alphabet-utf8.txt -a true
+      ./bin/run-cv.sh -d en -t alphabet-utf8.txt -c 1 -a true
 
 6. Finalize the model
 
