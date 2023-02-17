@@ -16,6 +16,6 @@ def prune_file(input_file, output_file):
             output_file.write(pruned_line + "\n")
 
 if __name__ == "__main__":
-    input_file = "vocab.txt"
+    input_file = "vocab-500000.txt"
     output_file = "vocab.pruned.txt"
     prune_file(input_file, output_file)
