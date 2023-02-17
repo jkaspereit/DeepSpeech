@@ -72,7 +72,48 @@ DeepSpeech 4 CommonVoice
 
 6. Finalize the model
 
-   ./convert_graphdef_memmapped_format --in_graph=models/de0/output_graph.pb --out_graph=models/de0/output_graph.pbmm
+   ./convert_graphdef_memmapped_format --in_graph=models/en/output_graph.pb --out_graph=models/en/output_graph.pbmm
+
+7. Transfere learning
+
+   Aktuell im Container:7b595
+
+      -d dataset
+      -c cudaDevice (default=0)
+      -t alphabet_config_path (default=data/alphabet.txt) 
+   
+   Example:
+
+   ./bin/transfer-learning.sh -d de0 -t alphabet-utf8.txt -c 1
+
+8. Sprachmodell
+
+   path /kenml/buil/bin
+
+files executable machen: generate_lm.py und run-transerfer-learning.sh
+   
+docker file anpassen:
+   einfach im docker in das workdir gehen
+   curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/native_client.amd64.cpu.linux.tar.xz
+tar xvf native_client.amd64.cpu.linux.tar.xz 
+
+vielleicht auch ein Skript dafür schreiben???
+ist das -> cd data/lm ? notwendig 
+   python3 data/lm/generate_lm.py --input_txt librispeech-lm-norm.txt.gz --output_dir . \
+  --top_k 500000 --kenlm_bins /kenml/buil/bin \
+  --arpa_order 5 --max_arpa_memory "85%" --arpa_prune "0|0|1" \
+  --binary_a_bits 255 --binary_q_bits 8 --binary_type trie
+
+taskcluster downloads nativ_client.tar.xz
+
+   ist das -> cd data/lm ? notwendig 
+# Download and extract appropriate native_client package:
+//TODO Das hier in das Dockerfile aufnehmen!
+curl -LO http://github.com/mozilla/DeepSpeech/releases/...
+tar xvf native_client.*.tar.xz
+./generate_scorer_package --alphabet ../alphabet.txt --lm lm.binary --vocab vocab-500000.txt \
+  --package kenlm.scorer --default_alpha 0.931289039105002 --default_beta 1.1834137581510284
+
 
 Language Specific Adjustments 
 ==================
