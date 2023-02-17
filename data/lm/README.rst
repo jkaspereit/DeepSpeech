@@ -1,1 +1,1 @@
-python import_cv
+python import_cv --train.csv path

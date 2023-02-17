@@ -91,11 +91,6 @@ DeepSpeech 4 CommonVoice
    path /kenml/buil/bin
 
 files executable machen: generate_lm.py und run-transerfer-learning.sh
-   
-docker file anpassen:
-   einfach im docker in das workdir gehen
-   curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/native_client.amd64.cpu.linux.tar.xz
-tar xvf native_client.amd64.cpu.linux.tar.xz 
 
 vielleicht auch ein Skript dafür schreiben???
 ist das -> cd data/lm ? notwendig 
