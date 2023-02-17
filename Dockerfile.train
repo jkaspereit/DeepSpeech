@@ -72,7 +72,8 @@ RUN wget -O - https://gitlab.com/libeigen/eigen/-/archive/3.3.8/eigen-3.3.8.tar.
 
 # Install native_client to generate new scorers
 WORKDIR /DeepSpeech/data/lm
-RUN wget -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/native_client.amd64.cpu.linux.tar.xz | tar xvf
+RUN curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/native_client.amd64.cpu.linux.tar.xz && \ 
+    tar xvf native_client.amd64.cpu.linux.tar.xz 
 
 # Basic Directory for Training
 WORKDIR /DeepSpeech

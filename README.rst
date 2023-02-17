@@ -88,27 +88,7 @@ DeepSpeech 4 CommonVoice
 
 8. Sprachmodell
 
-   path /kenml/buil/bin
-
-files executable machen: generate_lm.py und run-transerfer-learning.sh
-
-vielleicht auch ein Skript dafür schreiben???
-ist das -> cd data/lm ? notwendig 
-   python3 data/lm/generate_lm.py --input_txt librispeech-lm-norm.txt.gz --output_dir . \
-  --top_k 500000 --kenlm_bins /kenml/buil/bin \
-  --arpa_order 5 --max_arpa_memory "85%" --arpa_prune "0|0|1" \
-  --binary_a_bits 255 --binary_q_bits 8 --binary_type trie
-
-taskcluster downloads nativ_client.tar.xz
-
-   ist das -> cd data/lm ? notwendig 
-# Download and extract appropriate native_client package:
-//TODO Das hier in das Dockerfile aufnehmen!
-curl -LO http://github.com/mozilla/DeepSpeech/releases/...
-tar xvf native_client.*.tar.xz
-./generate_scorer_package --alphabet ../alphabet.txt --lm lm.binary --vocab vocab-500000.txt \
-  --package kenlm.scorer --default_alpha 0.931289039105002 --default_beta 1.1834137581510284
-
+   siehe entsprechender folder: data/lm
 
 Language Specific Adjustments 
 ==================
