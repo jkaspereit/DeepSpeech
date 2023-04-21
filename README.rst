@@ -102,14 +102,3 @@ Language Specific Adjustments
 - If your alphabet doesn't fit your language, you have to replace /data/alphabet.txt with the following output:
 
    python -m deepspeech_training.util.check_characters -csv data/cv-corpus/de/clips/train.csv,data/cv-corpus/de/clips/dev.csv,data/cv-corpus/de/clips/test.csv -unicode -alpha
-
-// Warning: This ignores the unicode, it's possible that this causes erros or unpreciouse results 
-// Probably i wongly parametarise the import script.
-// Probably import with NFKC normalization?
-// Probably remove unnecessary signs and lowercase every letter.
-
-Open Questions:
-- Do i have to set the local --validate_label_local my_validation.py? 
-- Should i activate Training with automatic mixed precision? 
-- What Training Options are provided? How does the optimal training cmd look like? 
-- Language model (scorer) already important for training? Probably not...
